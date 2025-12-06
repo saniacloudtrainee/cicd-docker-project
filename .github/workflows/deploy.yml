@@ -29,12 +29,12 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cicd-app:latest
 
       # Step 5: Deploy to VM via SSH
-      - name: Deploy to VM
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Deploy to VM via SSH key
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
-          password: ${{ secrets.VM_PASSWORD }}
+          key: ${{ secrets.VM_SSH_KEY }}
           script: |
             docker stop cicd-container || true
             docker rm cicd-container || true
